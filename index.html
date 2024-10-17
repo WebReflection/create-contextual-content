@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>create-contextual-content</title>
+  <script type="module">
+    import content from './index.js';
+
+    console.time('svg');
+    const svg = content('<td />', true);
+    console.timeEnd('svg');
+    console.assert('ownerSVGElement' in svg, 'SVG');
+
+    console.time('html');
+    const html = content('<td></td>', false);
+    console.timeEnd('html');
+    console.assert(!('ownerSVGElement' in html), 'HTML');
+    console.assert(html.constructor === HTMLTableCellElement, 'TD');
+
+    console.time('text');
+    const text = content('OK');
+    console.timeEnd('text');
+    console.assert(text.nodeType === 3, '#text');
+
+    console.time('fragment');
+    const fragment = content('<sup></sup><sub></sub>');
+    console.timeEnd('fragment');
+    console.assert(fragment.nodeType === 11, '#document-fragment');
+
+    console.time('svg fragment');
+    const svg_fragment = content('<rect /><rect />', true);
+    console.timeEnd('svg fragment');
+    console.assert(svg_fragment.nodeType === 11, '#svg-fragment');
+
+    console.assert(content('<rect /><rect />', false).nodeType === 1, 'rect in HTML');
+    document.body.appendChild(text);
+  </script>
+</head>
+</html>

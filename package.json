@@ -1,0 +1,25 @@
+{
+  "name": "create-contextual-content",
+  "version": "0.0.0",
+  "type": "module",
+  "main": "index.js",
+  "module": "index.js",
+  "keywords": ["template", "content", "HTML", "SVG"],
+  "author": "Andrea Giammarchi",
+  "files": [
+    "index.js",
+    "README.md",
+    "LICENSE"
+  ],
+  "license": "MIT",
+  "description": "An essential utility to create HTML or SVG content without leaking unnecessary nodes",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/WebReflection/create-contextual-content.git"
+  },
+  "bugs": {
+    "url": "https://github.com/WebReflection/create-contextual-content/issues"
+  },
+  "homepage": "https://github.com/WebReflection/create-contextual-content#readme"
+
+}
