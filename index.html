@@ -35,6 +35,34 @@
 
     console.assert(content('<rect /><rect />', false).nodeType === 1, 'rect in HTML');
     document.body.appendChild(text);
+
+    setTimeout(
+      html => {
+        let template = document.createElement('template');
+        benchmark('template', html, () => {
+          template.innerHTML = html;
+          const { content } = template;
+          template = document.createElement('template');
+          return content;
+        });
+        benchmark('module', html, content);
+      },
+      1000,
+      document.documentElement.outerHTML
+    );
+
+    function benchmark(name, html, callback) {
+      let result;
+      console.time(name + ' cold');
+      result = callback(html);
+      console.timeEnd(name + ' cold');
+      console.log(result.childNodes.length);
+      for (let i = 0; i < 10; i++) callback(html);
+      console.time(name + ' hot');
+      result = callback(html);
+      console.timeEnd(name + ' hot');
+      console.log(result.childNodes.length);
+    }
   </script>
 </head>
 </html>
